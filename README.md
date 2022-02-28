@@ -56,14 +56,14 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 
 ## Installation
 
-Use `cd` and `git clone` https://github.com/marikadicarlo/retail-wizard2.git 
+Use `cd` and `git clone`  
 
 Run `npm init`, and make sure the `package.json` is updated with "start": "node server.js"
 
 Run `npm install express sequelize mysql2` to install dependencies. To use the application locally, run `node server.js`.
 
 ## Links
-[Link to the GitHub Repository](https://marikadicarlo.github.io/retail-wizard2/)
+[Link to the GitHub Repository]()
 [Link to Deployed Application]()
 
 
