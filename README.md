@@ -63,7 +63,7 @@ Run `npm init`, and make sure the `package.json` is updated with "start": "node 
 Run `npm install express sequelize mysql2` to install dependencies. To use the application locally, run `node server.js`.
 
 ## Links
-[Link to the GitHub Repository](https://github.com/marikadicarlo/tech-talks)
+[Link to the GitHub Repository](https://github.com/marikadicarlo/tech-talks) <br />
 [Link to Deployed Application](https://marikadicarlo.github.io/tech-talks/)
 
 
