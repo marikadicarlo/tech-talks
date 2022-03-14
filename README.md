@@ -49,23 +49,5 @@ WHEN I am idle on the site for more than a set time
 THEN I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
 ```
 
-## Table of Contents
-- [Installation](#Installation)
-- [Links](#Links)
-- [Questions](#Questions)
-
-## Installation
-
-Use `cd` and `git clone` https://github.com/marikadicarlo/tech-talks.git
-
-Run `npm init`, and make sure the `package.json` is updated with "start": "node server.js"
-
-Run `npm install express sequelize mysql2` to install dependencies. To use the application locally, run `node server.js`.
-
-## Links
-[Link to the GitHub Repository](https://github.com/marikadicarlo/tech-talks) <br />
 [Link to Deployed Application](https://marikadicarlo.github.io/tech-talks/)
-
-
-## Questions
-Contact me with any questions at <mdicarlo19@yahoo.com> or [visit my GitHub page](https://github.com/marikadicarlo)
+<!-- []() -->
