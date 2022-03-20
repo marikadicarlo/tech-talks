@@ -1,67 +1,34 @@
 const router = require("express").Router();
-const sequelize = require("../config/connection");
-const { Post, User, Comment } = require("../models");
+const Blog = require("../models/Blog");
 const withAuth = require("../utils/auth");
 
-// get all posts for dashboard
-router.get("/", withAuth, (req, res) => {
-  console.log(req.session);
-  console.log("======================");
-  Post.findAll({
-    where: {
-      user_id: req.session.user_id,
-    },
-    include: [
-      {
-        model: Comment,
-        include: {
-          model: User
-        },
-      },
-      {
-        model: User,
-      },
-    ],
-  })
-    .then((dbPostData) => {
-      const posts = dbPostData.map((post) => post.get({ plain: true }));
-      res.render("dashboard", { posts, loggedIn: true });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+// route to get all blogs aka the landing page
+router.get("/", withAuth, async (req, res) => {
+  const blogData = await Blog.findAll().catch((err) => {
+    res.json(err);
+  });
+  // turns blog data into an array
+  const blogs = blogData.map((blog) => blog.get({ plain: true }));
+  res.render("all-blogs", { layout: "dashboard", blogs }); // this routes to the dashboard layout instead of the main
 });
 
-router.get("/edit/:id", withAuth, (req, res) => {
-  Post.findByPk(req.params.id, {
-    include: [
-      {
-        model: Comment,
-        include: {
-          model: User,
-        },
-      },
-      {
-        model: User,
-      },
-    ],
-  })
-    .then((dbPostData) => {
-      if (dbPostData) {
-        const post = dbPostData.get({ plain: true });
+// route to get one blog
+router.get("/blog/:id", withAuth, async (req, res) => {
+  try {
+    const blogData = await Blog.findByPk(req.params.id);
+    if (!blogData) {
+      res.status(404).json({ message: "No blog with this id!" });
+      return;
+    }
+    const blog = blogData.get({ plain: true });
+    res.render("single-blog", blog);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
-        res.render("edit-post", {
-          post,
-          loggedIn: true,
-        });
-      } else {
-        res.status(404).end();
-      }
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
+router.get("/new", withAuth, async (req, res) => {
+  res.render("new-blog", { layout: "dashboard" });
 });
 
 module.exports = router;

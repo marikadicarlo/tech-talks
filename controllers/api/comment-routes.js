@@ -1,46 +1,42 @@
-const router = require('express').Router();
-const { Comment } = require('../../models');
-const withAuth = require('../../utils/auth');
+const router = require("express").Router();
+const Comment = require("../../models/Comment");
 
-router.get('/', (req, res) => {
-  Comment.findAll()
-    .then(dbCommentData => res.json(dbCommentData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
+// route to create/add a blog
+router.post("/", async (req, res) => {
+  try {
+    const commentData = await Comment.create({
+      comment_name: req.body.comment_name,
+      description: req.body.description,
     });
+    res.status(200).json(commentData);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
-router.post('/', withAuth, (req, res) => {
-  // expects => {comment_text: "This is the comment", user_id: 1, post_id: 2}
-  Comment.create({
-    ...req.body,
-    userId: req.session.userId
-  })
-    .then(dbCommentData => res.json(dbCommentData))
-    .catch(err => {
-      console.log(err);
-      res.status(400).json(err);
-    });
-});
-
-router.delete('/:id', withAuth, (req, res) => {
-  Comment.destroy({
-    where: {
-      id: req.params.id
-    }
-  })
-    .then(dbCommentData => {
-      if (!dbCommentData) {
-        res.status(404).json({ message: 'No comment found with this id!' });
-        return;
+// According to MVC, what is the role of this action method?
+// This action method is the Controller. It accepts input and sends data to the Model and the View.
+router.put("/:id", async (req, res) => {
+  // Where is this action method sending the data from the body of the fetch request? Why?
+  // It is sending the data to the Model so that one comment can be updated with new data in the database.
+  try {
+    const comment = await Comment.update(
+      {
+        comment_name: req.body.comment_name,
+        description: req.body.description,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
       }
-      res.json(dbCommentData);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+    );
+    // If the database is updated successfully, what happens to the updated data below?
+    // The updated data (comment) is then sent back to handler that dispatched the fetch request.
+    res.status(200).json(comment);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

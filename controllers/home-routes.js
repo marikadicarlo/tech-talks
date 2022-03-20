@@ -1,82 +1,39 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection');
-const { Post, User, Comment } = require('../models');
+const Blog = require('../models/Blog');
 
-// get all posts for homepage
-router.get('/', (req, res) => {
-  console.log('======================');
-  Post.findAll({
-    include: [
-      {
-        model: Comment,
-        include: {
-          model: User
-        }
-      },
-      {
-        model: User
-      }
-    ]
-  })
-    .then(dbPostData => {
-      const posts = dbPostData.map(post => post.get({ plain: true }));
-
-      res.render("homepage", {
-        posts,
-        loggedIn: req.session.loggedIn,
+// route to get all blogs aka the landing page
+router.get('/', async (req, res) => {
+  const blogData = await Blog.findAll().catch((err) => { 
+      res.json(err);
       });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+        const blogs = blogData.map((blog) => blog.get({ plain: true }));
+        res.render('all-blogs', { blogs });
 });
-
-router.get("/post/:id", (req, res) => {
-  Post.findOne({
-    where: {
-      id: req.params.id,
-    },
   
-    include: [
-      {
-        model: Comment,
-      
-        include: {
-          model: User,
-        },
-      },
-      {
-        model: User,
-      },
-    ],
-  })
-    .then((dbPostData) => {
-      if (!dbPostData) {
-        res.status(404).json({ message: "No post found with this id" });
-        return;
+// route to get one blog
+router.get('/blog/:id', async (req, res) => {
+  try{ 
+      const blogData = await Blog.findByPk(req.params.id);
+      if(!blogData) {
+          res.status(404).json({message: 'No blog with this id!'});
+          return;
       }
-
-      const post = dbPostData.get({ plain: true });
-
-      res.render("single-post", {
-        post,
-        loggedIn: req.session.loggedIn,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+      const blog = blogData.get({ plain: true });
+      res.render('blog', blog);
+    } catch (err) {
+        res.status(500).json(err);
+    };     
 });
 
-router.get("/login", (req, res) => {
+// route to get to login page
+router.get('/login', async (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect("/");
-    return;
-  }
-
-  res.render("login");
+    res.redirect('/dashboard')
+    return
+  }  
+  res.render('login')
+  
 });
+
 
 module.exports = router;
