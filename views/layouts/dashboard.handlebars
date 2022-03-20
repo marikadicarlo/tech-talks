@@ -1,4 +1,4 @@
-{{!-- Not logged-in home page --}}
+{{!-- Logged-in home page --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,19 +15,21 @@
     <h1>Tech Talks</h1>
   </header>
   <nav>
-    <a href="/">Home</a>
-    <!-- Otherwise, show a link to login -->
-    <a href="/login">Login</a>
+    <a href="/dashboard">Home</a>
+    <!-- If the user is logged in, show a logout button -->
+    <button id="logout" class="btn-no-style">Logout</button>
   </nav>
   <main>
+    <a href="/dashboard/new"><button id="newBlogButton" class="col btn btn-primary" >
+      Add a new blog-post!</button></a>
     <div>
       {{{body}}}
     </div>
   </main>
   <!-- If the user is logged in, load the JS script for when they logout -->
-  {{#if loggedIn}}
+
   <script src="/javascript/logout.js"></script>
-  {{/if}}
+
 
 </body>
 

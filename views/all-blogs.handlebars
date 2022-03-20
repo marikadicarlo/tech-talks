@@ -1,0 +1,15 @@
+{{#each blogs as |blog|}}
+
+<div class="card">
+  <h5 class="card-header">{{blog_name}}</h5>
+  <div class="card-body">
+    <p class="card-text">{{description}}</p>
+    <textarea class="hidden" name="" id="commentText" cols="30" rows="10"></textarea>
+    <button id="comment" class="btn btn-primary">Leave a comment</button>
+    <button id='post' class="btn btn-primary hidden">Post</button>
+  </div>
+</div>
+
+{{/each}}
+
+<script src="javascript/all-blogs.js"></script>

@@ -9,7 +9,7 @@ router.get("/", withAuth, async (req, res) => {
   });
   // turns blog data into an array
   const blogs = blogData.map((blog) => blog.get({ plain: true }));
-  res.render("all-blogs", { layout: "dashboard", blogs }); // this routes to the dashboard layout instead of the main
+  res.render("all-blogs", { layout: "dashboard", blogs }); 
 });
 
 // route to get one blog
