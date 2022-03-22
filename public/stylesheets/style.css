@@ -1,4 +1,4 @@
-/* * {
+* {
   box-sizing: border-box;
 }
 
@@ -32,6 +32,10 @@ button {
   border-radius: 5px;
 }
 
+.card {
+  margin-bottom: 25px;
+}
+
 button:hover {
   background-color: #3486eb;
 }
@@ -54,7 +58,7 @@ textarea:focus, input:focus {
 
 textarea {
   min-width: 40%;
-  min-height: 100px;
+  min-height: 65px;
 }
 
 form > div {
@@ -75,6 +79,7 @@ form label {
 }
 
 header {
+  margin-top: 20px;
   border-bottom: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
@@ -82,8 +87,13 @@ header {
   padding: 0 1%;
 }
 
-header h1 {
-  font-size: 1em;
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+h5 {
+  font-weight: bold;
 }
 
 main {
@@ -175,7 +185,7 @@ footer {
   justify-content: center;
   padding: 1%;
   font-size: 110%;
-} */
+}
 
 
 .hidden {

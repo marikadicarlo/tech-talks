@@ -12,16 +12,16 @@
 <body>
 
   <header>
-    <h1>Tech Talks</h1>
-  </header>
-  <nav>
-    <a href="/dashboard">Home</a>
+    <h1>tech talks: a tech blog</h1>
+    <nav>
+    <a href="/dashboard">homepage</a>
+    <a href="/dashboard/new">create post</button></a>
     <!-- If the user is logged in, show a logout button -->
-    <button id="logout" class="btn-no-style">Logout</button>
+    <button id="logout" type="button" class="btn btn-danger">logout</button>
   </nav>
+  </header>
+  
   <main>
-    <a href="/dashboard/new"><button id="newBlogButton" class="col btn btn-primary" >
-      Add a new blog-post!</button></a>
     <div>
       {{{body}}}
     </div>

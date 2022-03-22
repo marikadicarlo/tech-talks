@@ -3,27 +3,26 @@
   <!-- This is the form for adding a new blog -->
   <div class="add-blog-container">
     <h2>
-      Post here about tech!
+      create new blog post
     </h2>
+    {{!-- <input class="form-control" type="text" placeholder="title:"> --}}
     <form class="new-blog-form">
       <label for="blog_name">
-        Blog Title:
+        title:
       </label>
-      <br />
       <textarea id="blog_name" name="blog_name" rows="2" cols="30">
       {{blog_name}}
     </textarea>
-      <br />
       <label for="description">
-        Description:
+        content:
       </label>
-      <br />
+
       <textarea id="description" name="description" rows="5" cols="30">
       {{description}}
     </textarea>
       <br />
       <button type="submit" value="Submit">
-        Submit
+        create post
       </button>
     </form>
   </div>
